@@ -6,6 +6,7 @@ import fetchNotes from "../../services/noteService";
 import { useState } from "react";
 import Pagination from "../ReactPaginate/ReactPaginate";
 import Modal from "../Modal/Modal";
+import NoteForm from "../NoteForm/NoteForm";
 
 function App() {
   const [topic, setTopic] = useState("");
@@ -19,7 +20,7 @@ function App() {
   });
 
   const handleDelete = () => {
-    setTopic('');
+    setTopic("");
   };
 
   const totalpage = data?.totalPages ?? 0;
@@ -45,7 +46,7 @@ function App() {
         }
         {open && (
           <Modal onClose={closeModal}>
-            <></>
+            <NoteForm onClose={closeModal} />
           </Modal>
         )}
       </header>
