@@ -1,6 +1,9 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import css from "./NoteForm.module.css";
 import * as Yup from "yup";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { createNote } from "../../services/noteService";
+import type { NewNoteBody } from "../../types/note";
 
 interface NoteListValues {
   title: string;
@@ -31,11 +34,30 @@ const validationSchema = Yup.object().shape({
 });
 
 function NoteForm({ onClose }: NoteFormProps) {
+  const queryClient = useQueryClient();
+  const mutation = useMutation({
+    mutationFn: (newNote: NewNoteBody) => createNote(newNote),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ["notes"] });
+      onClose();
+    },
+    onError: () => {
+      //toast error
+    },
+  });
+
+  const handleCreate = (values: NewNoteBody) => {
+    mutation.mutate({
+      title: values.title,
+      content: values.content,
+      tag: values.tag,
+    });
+  };
   return (
     <Formik
       initialValues={initialValues}
       validationSchema={validationSchema}
-      onSubmit={() => {}}
+      onSubmit={handleCreate}
     >
       <Form className={css.form}>
         <div className={css.formGroup}>
@@ -72,7 +94,11 @@ function NoteForm({ onClose }: NoteFormProps) {
           <button type="button" className={css.cancelButton} onClick={onClose}>
             Cancel
           </button>
-          <button type="submit" className={css.submitButton} disabled={false}>
+          <button
+            type="submit"
+            className={css.submitButton}
+            disabled={mutation.isPending}
+          >
             Create note
           </button>
         </div>

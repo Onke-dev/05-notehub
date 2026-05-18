@@ -1,6 +1,12 @@
 export interface Note {
   id: string;
-  tittle: string;
+  title: string;
+  content: string;
+  tag: string;
+}
+
+export interface NewNoteBody {
+  title: string;
   content: string;
   tag: string;
 }
