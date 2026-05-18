@@ -1,15 +1,15 @@
 import type { ChangeEvent } from "react";
 import css from "./SearchBox.module.css";
-import type { DebouncedState } from "use-debounce";
+// import type { DebouncedState } from "use-debounce";
 
 interface SearchBoxProps {
   value: string;
-  onSrearch: DebouncedState<(newValueSearch: string) => void>;
+  onChangeSearch: (value: string) => void;
 }
 
-function SearchBox({ onSrearch, value }: SearchBoxProps) {
+function SearchBox({ onChangeSearch, value }: SearchBoxProps) {
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    onSrearch(e.target.value);
+    onChangeSearch(e.target.value);
   };
 
   return (

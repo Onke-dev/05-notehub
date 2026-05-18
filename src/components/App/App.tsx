@@ -23,7 +23,7 @@ function App() {
     placeholderData: keepPreviousData,
   });
 
-  const onSrearch = useDebouncedCallback((newValueSearch: string) => {
+  const onChangeSearch = useDebouncedCallback((newValueSearch: string) => {
     setTopic(newValueSearch);
   }, 300);
 
@@ -31,8 +31,8 @@ function App() {
   return (
     <div className={css.app}>
       <header className={css.toolbar}>
-        {<SearchBox onSrearch={onSrearch} value={topic} />}
-        {totalpage > 0 && (
+        {<SearchBox onChangeSearch={onChangeSearch} value={topic} />}
+        {totalpage > 1 && (
           <Pagination
             pageCount={totalpage}
             forcePage={page}

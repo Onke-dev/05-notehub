@@ -28,9 +28,13 @@ const validationSchema = Yup.object().shape({
     .required("Title is required"),
   content: Yup.string()
     .min(2, "Content is too short")
-    .max(500, "Content is too long")
-    .required("Content is required"),
-  tag: Yup.string().required("Select tag"),
+    .max(500, "Content is too long"),
+  tag: Yup.string()
+    .oneOf(
+      ["Todo", "Work", "Personal", "Meeting", "Shopping"],
+      "Please select valid a tag",
+    )
+    .required("Select tag"),
 });
 
 function NoteForm({ onClose }: NoteFormProps) {
