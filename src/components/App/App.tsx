@@ -3,7 +3,7 @@ import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import css from "./App.module.css";
 import fetchNotes from "../../services/noteService";
 import { useState } from "react";
-import Pagination from "../ReactPaginate/ReactPaginate";
+import Pagination from "../Pagination/Pagination";
 import Modal from "../Modal/Modal";
 import NoteForm from "../NoteForm/NoteForm";
 import SearchBox from "../SearchBox/SearchBox";
